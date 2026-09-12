@@ -313,3 +313,336 @@
     </script>
 </body>
 </html>
+
+/* ==========================================
+   업적 페이지
+========================================== */
+
+.achievement-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.achievement-top h2 {
+    font-size: 1.35rem;
+    margin-bottom: 5px;
+}
+
+.achievement-top p {
+    font-size: 0.82rem;
+    color: #777;
+}
+
+
+/* 달성 개수 */
+
+.achievement-total {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+}
+
+.achievement-total strong {
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.achievement-total span {
+    color: #888;
+}
+
+
+/* ==========================================
+   업적 탭
+========================================== */
+
+.achievement-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+
+    background: #e9ecef;
+    padding: 5px;
+    border-radius: 10px;
+
+    margin-bottom: 15px;
+}
+
+.achievement-tab {
+    border: none;
+    background: transparent;
+
+    padding: 10px 4px;
+
+    border-radius: 7px;
+
+    font-size: 0.82rem;
+    font-weight: bold;
+
+    color: #777;
+
+    cursor: pointer;
+}
+
+.achievement-tab.active {
+    background: white;
+    color: #007bff;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ==========================================
+   업적 목록
+========================================== */
+
+.achievement-list-new {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* ==========================================
+   업적 카드
+========================================== */
+
+.achievement-card-new {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    background: white;
+
+    padding: 16px;
+
+    border-radius: 12px;
+
+    border-left: 5px solid #d9d9d9;
+
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05);
+
+    transition: 0.2s;
+}
+
+.achievement-card-new:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+}
+
+.achievement-card-new.completed {
+    border-left-color: #2ed573;
+}
+
+.achievement-card-new.secret-card {
+    background: #f1f2f6;
+}
+
+
+/* ==========================================
+   업적 아이콘
+========================================== */
+
+.achievement-icon-new {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background: #f1f3f5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.7rem;
+
+    flex-shrink: 0;
+}
+
+.completed .achievement-icon-new {
+    background: #d3f9d8;
+}
+
+
+/* ==========================================
+   업적 내용
+========================================== */
+
+.achievement-info-new {
+    flex: 1;
+    min-width: 0;
+}
+
+.achievement-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 5px;
+}
+
+.achievement-name-row h3 {
+    font-size: 1rem;
+}
+
+.achievement-description {
+    color: #777;
+
+    font-size: 0.82rem;
+    line-height: 1.45;
+
+    margin-bottom: 9px;
+}
+
+
+/* ==========================================
+   상태 배지
+========================================== */
+
+.achievement-progress-badge {
+    background: #eeeeee;
+    color: #777;
+
+    padding: 3px 7px;
+
+    border-radius: 10px;
+
+    font-size: 0.68rem;
+
+    white-space: nowrap;
+}
+
+.achievement-complete-badge {
+    background: #d3f9d8;
+    color: #2b8a3e;
+
+    padding: 3px 7px;
+
+    border-radius: 10px;
+
+    font-size: 0.68rem;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   진행도
+========================================== */
+
+.achievement-progress {
+    width: 100%;
+    height: 7px;
+
+    background: #e9ecef;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.achievement-progress-fill {
+    height: 100%;
+
+    background: #007bff;
+
+    border-radius: 10px;
+
+    transition: width 0.3s ease;
+}
+
+.completed .achievement-progress-fill {
+    background: #2ed573;
+}
+
+.achievement-progress-text {
+    margin-top: 4px;
+
+    text-align: right;
+
+    font-size: 0.7rem;
+
+    color: #999;
+}
+
+
+/* ==========================================
+   비밀 업적
+========================================== */
+
+.secret-message {
+    font-size: 0.75rem;
+
+    color: #888;
+
+    background: #e5e5e5;
+
+    padding: 7px 10px;
+
+    border-radius: 7px;
+
+    text-align: center;
+}
+
+
+/* ==========================================
+   1~9호선 업적 색상
+========================================== */
+
+.line-achievement {
+    border-left-color: var(--achievement-color);
+}
+
+.line-achievement .achievement-icon-new {
+    background-color: var(--achievement-color);
+    color: white;
+
+    font-weight: bold;
+    font-size: 1.35rem;
+
+    border: 4px solid white;
+
+    box-shadow: 0 0 0 2px var(--achievement-color);
+}
+
+.line-achievement .achievement-progress-fill {
+    background-color: var(--achievement-color);
+}
+
+.line-achievement .achievement-progress-badge {
+    color: var(--achievement-color);
+}
+
+.line-achievement.completed {
+    border-left-color: var(--achievement-color);
+}
+
+.line-achievement.completed .achievement-progress-fill {
+    background-color: var(--achievement-color);
+}
+
+
+/* 모바일 */
+
+@media (max-width: 480px) {
+
+    .achievement-tabs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .achievement-icon-new {
+        width: 48px;
+        height: 48px;
+
+        font-size: 1.5rem;
+    }
+}
