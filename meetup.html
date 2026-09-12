@@ -345,37 +345,46 @@
             });
         }
 
+        // ===== 수정된 함수: review.js가 실제로 저장하는 형식(stationReviews 배열)에 맞춤 =====
         function getRealStationReview(stationName) {
             try {
-                const storedReviews = JSON.parse(localStorage.getItem('subway_reviews') || '{}');
-                let targetData = storedReviews[stationName];
-                
-                if (!targetData) {
-                    for (let i = 0; i < localStorage.length; i++) {
-                        const key = localStorage.key(i);
-                        if (key.includes(stationName) || key.includes('review')) {
-                            try {
-                                const val = JSON.parse(localStorage.getItem(key));
-                                if (val && (val.station === stationName || key.includes(stationName))) {
-                                    targetData = val;
-                                    break;
-                                }
-                            } catch(e) {}
-                        }
-                    }
+                const reviews = JSON.parse(localStorage.getItem('stationReviews')) || [];
+
+                const stationReviews = reviews.filter(function(review) {
+                    return review.station === stationName;
+                });
+
+                if (stationReviews.length === 0) {
+                    return null;
                 }
 
-                if (targetData) {
-                    const score = targetData.averageScore || targetData.score || '4.0';
-                    const text = targetData.latestReview || targetData.text || targetData.reviewText;
-                    if (text) {
-                        return { score: Number(score).toFixed(1), reviewText: text };
+                // 화장실 평점 평균 계산
+                let total = 0;
+                let count = 0;
+                stationReviews.forEach(function(review) {
+                    if (review.toiletRating) {
+                        total += Number(review.toiletRating);
+                        count++;
                     }
+                });
+                const score = count > 0 ? (total / count).toFixed(1) : null;
+
+                // 가장 최근 리뷰에서 코멘트 하나 가져오기 (화장실 > 환승 > 상권 순)
+                const latest = stationReviews[stationReviews.length - 1];
+                const text = latest.toiletComment || latest.transferComment || latest.commercialComment || null;
+
+                if (score === null && !text) {
+                    return null;
                 }
+
+                return {
+                    score: score || '-',
+                    reviewText: text || '상세 코멘트가 없습니다.'
+                };
             } catch (e) {
                 console.error("리뷰 로드 에러:", e);
+                return null;
             }
-            return null; 
         }
 
         function findMeetingPlace() {
