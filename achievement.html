@@ -3,114 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubwayHub - 업적</title>
+    <title>가라타다 - 업적</title>
+    <link rel="icon" type="image/png" href="assets/logo-mark.png">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- CSS 스타일이 화면에 텍스트로 노출되지 않도록 <style> 태그로 감쌌습니다 -->
-    <style>
-        .achievement-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .achievement-top h2 { font-size: 1.35rem; margin-bottom: 5px; }
-        .achievement-top p { font-size: 0.82rem; color: #777; }
-        .achievement-total { background: white; padding: 12px 16px; border-radius: 12px; box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06); white-space: nowrap; }
-        .achievement-total strong { font-size: 1.5rem; color: #007bff; }
-        .achievement-total span { color: #888; }
-        .achievement-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; background: #e9ecef; padding: 5px; border-radius: 10px; margin-bottom: 15px; }
-        .achievement-tab { border: none; background: transparent; padding: 10px 4px; border-radius: 7px; font-size: 0.82rem; font-weight: bold; color: #777; cursor: pointer; }
-        .achievement-tab.active { background: white; color: #007bff; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06); }
-        .achievement-list-new { display: flex; flex-direction: column; gap: 12px; }
-        .achievement-card-new { display: flex; align-items: center; gap: 14px; background: white; padding: 16px; border-radius: 12px; border-left: 5px solid #d9d9d9; box-shadow: 0 2px 7px rgba(0, 0, 0, 0.05); transition: 0.2s; }
-        .achievement-card-new:hover { transform: translateY(-2px); box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08); }
-        .achievement-card-new.completed { border-left-color: #2ed573; }
-        .achievement-card-new.secret-card { background: #f1f2f6; }
-        .achievement-icon-new { width: 55px; height: 55px; border-radius: 50%; background: #f1f3f5; display: flex; justify-content: center; align-items: center; font-size: 1.7rem; flex-shrink: 0; }
-        .completed .achievement-icon-new { background: #d3f9d8; }
-        .achievement-info-new { flex: 1; min-width: 0; }
-        .achievement-name-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .achievement-name-row h3 { font-size: 1rem; }
-        .achievement-description { color: #777; font-size: 0.82rem; line-height: 1.45; margin-bottom: 9px; }
-        .achievement-progress-badge { background: #eeeeee; color: #777; padding: 3px 7px; border-radius: 10px; font-size: 0.68rem; white-space: nowrap; }
-        .achievement-complete-badge { background: #d3f9d8; color: #2b8a3e; padding: 3px 7px; border-radius: 10px; font-size: 0.68rem; white-space: nowrap; }
-        .achievement-progress { width: 100%; height: 7px; background: #e9ecef; border-radius: 10px; overflow: hidden; }
-        .achievement-progress-fill { height: 100%; background: #007bff; border-radius: 10px; transition: width 0.3s ease; }
-        .completed .achievement-progress-fill { background: #2ed573; }
-        .achievement-progress-text { margin-top: 4px; color: #999; font-size: 0.7rem; text-align: right; }
-        .secret-message { color: #999; font-size: 0.78rem; font-weight: bold; }
-    </style>
 </head>
-
 <body>
-
 <header class="header">
-    <h1>SubwayHub <span>업적</span></h1>
+    <div class="header-content">
+        <a href="index.html" class="brand">
+            <span class="brand-logo-wrap"><img src="assets/logo-mark.png" alt="" class="brand-logo" aria-hidden="true"></span>
+            <span class="brand-text">
+                <span class="brand-name">가라타다</span>
+                <span class="brand-page">업적</span>
+            </span>
+        </a>
+        
+    </div>
 </header>
-
 <nav class="nav-tabs">
-    <a href="index.html" class="tab-btn">약속 잡기</a>
+    <a href="index.html" class="tab-btn">메인</a>
+    <a href="meetup.html" class="tab-btn">약속 잡기</a>
     <a href="review.html" class="tab-btn">리뷰</a>
     <a href="achievement.html" class="tab-btn active">업적</a>
     <a href="wiki.html" class="tab-btn">역무위키</a>
 </nav>
-
 <main class="container">
-
-    <!-- 상단 -->
     <section class="achievement-top">
-
         <div>
-            <h2>🏆 나의 업적</h2>
-            <p>
-                지하철을 이용하며 다양한 업적을 달성해보세요.
-            </p>
+            <p class="page-kicker">ACHIEVEMENTS</p>
+            <h2>나의 업적</h2>
+            <p>이용 기록을 쌓고 노선별·특별 업적을 채워보세요.</p>
         </div>
-
-        <div class="achievement-total">
-            <strong id="completedCount">0</strong>
-            <span>/ <span id="totalCount">0</span></span>
-        </div>
-
+        <div class="achievement-total"><strong id="completedCount">0</strong><span> / <span id="totalCount">0</span></span></div>
     </section>
-
-
-    <!-- 카테고리 -->
     <div class="achievement-tabs">
-
-        <button
-            class="achievement-tab active"
-            data-category="transfer"
-        >
-            🔄 환승
-        </button>
-
-        <button
-            class="achievement-tab"
-            data-category="line"
-        >
-            🚇 노선
-        </button>
-
-        <button
-            class="achievement-tab"
-            data-category="special"
-        >
-            ⭐ 특별
-        </button>
-
-        <button
-            class="achievement-tab"
-            data-category="secret"
-        >
-            🔒 비밀
-        </button>
-
+        <button class="achievement-tab active" data-category="transfer">환승</button>
+        <button class="achievement-tab" data-category="line">노선</button>
+        <button class="achievement-tab" data-category="special">특별</button>
+        <button class="achievement-tab" data-category="secret">비밀</button>
     </div>
-
-
-    <!-- 업적이 들어갈 영역 -->
     <div id="achievementList" class="achievement-list-new"></div>
-
 </main>
-
-
 <script>
 
 /* ==========================================
@@ -627,6 +560,5 @@ tabs.forEach(tab => {
 renderAchievements("transfer");
 
 </script>
-
 </body>
 </html>

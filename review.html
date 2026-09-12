@@ -1,231 +1,71 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SubwayHub - 역별 리뷰</title>
-
-    <link rel="stylesheet"  href="style.css">
-
-    <style>
-        .station-search-area {
-    position: relative;
-    flex: 1;
-}
-        .station-suggestions {
-            position: absolute;
-
-            top: 100%;
-            left: 0;
-
-            width: 100%;
-
-            background-color: white;
-
-            border: 1px solid #ddd;
-            border-radius: 8px;
-
-            margin-top: 5px;
-
-            max-height: 250px;
-            overflow-y: auto;
-
-            display: none;
-
-            z-index: 100;
-
-            box-shadow:
-                0 5px 15px
-                rgba(0, 0, 0, 0.1);
-        }
-
-        .station-suggestion {
-            padding: 12px;
-
-            cursor: pointer;
-
-            border-bottom: 1px solid #eee;
-        }
-
-        .station-suggestion:hover {
-            background-color: #f5f5f5;
-        }
-
-        .station-name {
-            font-weight: bold;
-        }
-
-        .station-lines {
-            margin-left: 8px;
-
-            color: #888;
-
-            font-size: 12px;
-        }
-    </style>
+    <title>가라타다 - 역 리뷰</title>
+    <link rel="icon" type="image/png" href="assets/logo-mark.png">
+    <link rel="stylesheet" href="style.css">
 </head>
-
-
 <body>
-
-    <header class="header" style="background-color: #007bff; padding: 15px 20px;">
-        <div class="header-content">
-            <h1>
-                가라타다 <span class="subtitle">gara</span>
-                <span class="header-badge">리뷰</span>
-            </h1>
-            <div id="authSection" class="auth-section"></div>
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="brand">
+            <span class="brand-logo-wrap"><img src="assets/logo-mark.png" alt="" class="brand-logo" aria-hidden="true"></span>
+            <span class="brand-text">
+                <span class="brand-name">가라타다</span>
+                <span class="brand-page">역 리뷰</span>
+            </span>
+        </a>
+        
+    </div>
+</header>
+<nav class="nav-tabs">
+    <a href="index.html" class="tab-btn">메인</a>
+    <a href="meetup.html" class="tab-btn">약속 잡기</a>
+    <a href="review.html" class="tab-btn active">리뷰</a>
+    <a href="achievement.html" class="tab-btn">업적</a>
+    <a href="wiki.html" class="tab-btn">역무위키</a>
+</nav>
+<main class="container">
+    <section class="page-content">
+        <div class="page-intro">
+            <p class="page-kicker">STATION REVIEW</p>
+            <h2>역별 상세 리뷰</h2>
+            <p>실제 이용자가 남긴 시설, 환승, 주변 상권 정보를 확인해보세요.</p>
         </div>
-    </header>
 
-
-    <nav class="nav-tabs">
-
-        <a href="index.html" class="tab-btn">
-            약속 잡기
-        </a>
-
-        <a href="review.html" class="tab-btn active">
-            리뷰
-        </a>
-
-        <a href="achievement.html" class="tab-btn">
-            업적
-        </a>
-
-        <a href="wiki.html" class="tab-btn">
-            역무위키
-        </a>
-
-    </nav>
-
-
-    <main class="container">
-
-        <section class="page-content">
-
-            <h2>
-                🔍 역별 상세 리뷰
-            </h2>
-
-
-            <div class="search-box">
-
-                <div class="station-search-area">
-
-                    <input
-                        id="stationSearchInput"
-                        type="text"
-                        placeholder="역 이름을 입력하세요 (예: 강남역)"
-                        autocomplete="off"
-                    >
-
-                    <div
-                        id="stationSuggestions"
-                        class="station-suggestions"
-                    ></div>
-
-                </div>
-
-
-                <button
-                    id="searchButton"
-                    type="button"
-                >
-                    검색
-                </button>
-
-
-                <button
-                    id="writeReviewButton"
-                    type="button"
-                >
-                    리뷰 쓰기
-                </button>
-
+        <div class="search-box">
+            <div class="station-search-area">
+                <input id="stationSearchInput" type="text" placeholder="역 이름을 입력하세요 (예: 강남역)" autocomplete="off">
+                <div id="stationSuggestions" class="station-suggestions"></div>
             </div>
+            <button id="searchButton" type="button">검색</button>
+            <button id="writeReviewButton" type="button" class="secondary-btn">리뷰 쓰기</button>
+        </div>
 
+        <h3 id="stationTitle">역을 검색해주세요.</h3>
 
-            <h3 id="stationTitle">
-                역을 검색해주세요.
-            </h3>
-
-
-            <div class="card-grid">
-
-                <div class="card">
-
-                    <h3>
-                        🚽 시설 (화장실 정보)
-                    </h3>
-
-                    <p
-                        class="rating"
-                        id="toiletAverage"
-                    >
-                        리뷰 없음
-                    </p>
-
-                    <p id="toiletReviewText">
-                        등록된 정보가 없습니다.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        🔄 환승 난이도 (환승역 전용)
-                    </h3>
-
-                    <span
-                        class="badge"
-                        id="transferAverage"
-                    >
-                        리뷰 없음
-                    </span>
-
-                    <p id="transferReviewText">
-                        등록된 정보가 없습니다.
-                    </p>
-
-                </div>
-
-
-                <div class="card">
-
-                    <h3>
-                        🍽️ 주변 상권 정보
-                    </h3>
-
-                    <div id="commercialReviewText">
-
-                        <p>
-                            등록된 정보가 없습니다.
-                        </p>
-
-                    </div>
-
-                </div>
-
+        <div class="card-grid">
+            <div class="card">
+                <h3>시설 · 화장실</h3>
+                <p class="rating" id="toiletAverage">리뷰 없음</p>
+                <p id="toiletReviewText">등록된 정보가 없습니다.</p>
             </div>
-
-
-            <p id="reviewCount">
-                리뷰 0개
-            </p>
-
-        </section>
-
-    </main>
-
-
-    <script src="stationData.js"></script>
-    <script src="review.js"></script>
-
+            <div class="card">
+                <h3>환승 난이도</h3>
+                <span class="badge" id="transferAverage">리뷰 없음</span>
+                <p id="transferReviewText">등록된 정보가 없습니다.</p>
+            </div>
+            <div class="card">
+                <h3>주변 상권</h3>
+                <div id="commercialReviewText"><p>등록된 정보가 없습니다.</p></div>
+            </div>
+        </div>
+        <p id="reviewCount">리뷰 0개</p>
+    </section>
+</main>
+<script src="stationData.js"></script>
+<script src="review.js"></script>
 </body>
-
 </html>

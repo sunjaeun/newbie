@@ -4,259 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>가라타다 - 메인</title>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="icon" type="image/png" href="assets/logo-mark.png">
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-            margin: 0;
-            background-color: #f4f6f8;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .header-content h1 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            color: white;
-            margin: 0;
-        }
-
-        .header-content h1 span.subtitle {
-            font-size: 0.9rem;
-            font-weight: normal;
-            opacity: 0.8;
-        }
-
-        .header-badge {
-            background-color: #ff4757;
-            color: white;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            vertical-align: middle;
-        }
-
-        .auth-section {
-            font-size: 0.9rem;
-        }
-
-        .auth-btn {
-            background-color: white;
-            color: #007bff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .user-greeting {
-            margin-right: 10px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            width: 320px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .modal-content h3 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            outline: none;
-            box-sizing: border-box;
-        }
-
-        .modal-content input:focus {
-            border-color: #007bff;
-        }
-
-        .modal-buttons {
-            margin-top: 10px;
-        }
-
-        .modal-buttons button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 0 5px;
-            width: 40%;
-        }
-
-        .btn-primary { background: #007bff; color: white; }
-        .btn-secondary { background: #e9ecef; color: #333; }
-
-        .main-banner {
-            background: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-top: 20px;
-        }
-
-        .main-banner h2 {
-            color: #333;
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-        }
-
-        .main-banner p {
-            color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .start-btn {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-    </style>
 </head>
 <body>
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="brand">
+            <span class="brand-logo-wrap"><img src="assets/logo-mark.png" alt="" class="brand-logo" aria-hidden="true"></span>
+            <span class="brand-text">
+                <span class="brand-name">가라타다</span>
+                <span class="brand-page">교통 생활 커뮤니티</span>
+            </span>
+        </a>
+        <div id="authSection" class="auth-section"></div>
+    </div>
+</header>
 
-    <header class="header" style="background-color: #007bff; padding: 15px 20px;">
-        <div class="header-content">
-            <h1>
-                가라타다 <span class="subtitle">gara</span>
-                <span class="header-badge">HOME</span>
-            </h1>
-            <div id="authSection" class="auth-section"></div>
-        </div>
-    </header>
-
-    <div id="loginModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3>간편 로그인</h3>
-            <input type="text" id="nicknameInput" placeholder="아이디를 입력하세요">
-            <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
-            <div class="modal-buttons">
-                <button class="btn-secondary" onclick="closeLoginModal()">취소</button>
-                <button class="btn-primary" onclick="handleLogin()">로그인</button>
-            </div>
+<div id="loginModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3>로그인</h3>
+        <input type="text" id="nicknameInput" placeholder="아이디를 입력하세요">
+        <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
+        <div class="modal-buttons">
+            <button class="btn-secondary" onclick="closeLoginModal()">취소</button>
+            <button class="btn-primary" onclick="handleLogin()">로그인</button>
         </div>
     </div>
+</div>
 
+<nav class="nav-tabs">
+    <a href="index.html" class="tab-btn active">메인</a>
+    <a href="meetup.html" class="tab-btn">약속 잡기</a>
+    <a href="review.html" class="tab-btn">리뷰</a>
+    <a href="achievement.html" class="tab-btn">업적</a>
+    <a href="wiki.html" class="tab-btn">역무위키</a>
+</nav>
 
+<main class="home-shell">
+    <section class="hero-card">
+        <div class="hero-copy">
+            <p class="hero-eyebrow">SEOUL TRANSIT / COMMUNITY</p>
+            <h1><span>가라.</span><span>타다.</span></h1>
+            <p class="hero-lead">약속 장소부터 역 리뷰, 업적, 역무위키까지.<br>매일 타는 지하철을 조금 더 재미있게.</p>
+            <div class="hero-actions">
+                <a href="meetup.html" class="primary-btn">약속 장소 찾기 ↗</a>
+                <a href="review.html" class="secondary-btn">역 리뷰 보기</a>
+            </div>
+        </div>
 
-    <main class="container" style="max-width: 600px; margin: 20px auto; padding: 0 20px;">
-        <section class="main-banner">
-            <h2>🚇 환영합니다! 가라타다 서비스</h2>
-            <p>친구와 나의 중간 지점 환승역을 찾고,<br>다양한 역무 정보와 커뮤니티 리뷰를 확인해보세요.</p>
-            <a href="meetup.html" class="start-btn">약속 장소 찾으러 가기</a>
-        </section>
-    </main>
+        <div class="hero-poster">
+            <div class="hero-sticker">GARA<br>TADA</div>
+            <img src="assets/logo-full.png" alt="가라타다 로고">
+            <div class="hero-poster-caption">RIDE · REVIEW · RECORD</div>
+        </div>
+    </section>
 
-    <script>
-        function checkLoginStatus() {
-            const savedNickname = localStorage.getItem('subwayhub_user');
-            const authSection = document.getElementById('authSection');
+    <section class="quick-grid" aria-label="주요 기능">
+        <a href="review.html" class="quick-card">
+            <strong>역 리뷰</strong>
+            <span>화장실, 환승 난이도, 주변 상권 정보를 확인합니다.</span>
+        </a>
+        <a href="achievement.html" class="quick-card">
+            <strong>업적</strong>
+            <span>이용 기록에 따라 노선별·특별 업적을 채워보세요.</span>
+        </a>
+        <a href="wiki.html" class="quick-card">
+            <strong>역무위키</strong>
+            <span>사용자가 함께 채워가는 역별 생활 정보를 확인합니다.</span>
+        </a>
+    </section>
+</main>
 
-            if (savedNickname) {
-                authSection.innerHTML = `
-                    <span class="user-greeting">${savedNickname}님</span>
-                    <button class="auth-btn" onclick="handleLogout()">로그아웃</button>
-                `;
-            } else {
-                authSection.innerHTML = `
-                    <button class="auth-btn" onclick="openLoginModal()">로그인</button>
-                `;
-            }
-        }
-
-        function openLoginModal() {
-            document.getElementById('loginModal').style.display = 'flex';
-            document.getElementById('nicknameInput').focus();
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
-            document.getElementById('nicknameInput').value = ''; 
-            document.getElementById('passwordInput').value = ''; 
-        }
-
-        function handleLogin() {
-            const nickname = document.getElementById('nicknameInput').value.trim();
-            const password = document.getElementById('passwordInput').value.trim();
-
-            if (!nickname) {
-                alert("아이디를 입력해주세요!");
-                document.getElementById('nicknameInput').focus();
-                return;
-            }
-            if (!password) {
-                alert("비밀번호를 입력해주세요!");
-                document.getElementById('passwordInput').focus();
-                return;
-            }
-            
-            localStorage.setItem('subwayhub_user', nickname);
-            closeLoginModal();
-            checkLoginStatus(); 
-        }
-
-        function handleLogout() {
-            localStorage.removeItem('subwayhub_user');
-            checkLoginStatus(); 
-        }
-
-        document.getElementById('nicknameInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('passwordInput').focus();
-            }
-        });
-
-        document.getElementById('passwordInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                handleLogin();
-            }
-        });
-
-        window.onload = function() {
-            checkLoginStatus();
-        };
-    </script>
+<script>
+function checkLoginStatus() {
+    const savedNickname = localStorage.getItem('subwayhub_user');
+    const authSection = document.getElementById('authSection');
+    if (savedNickname) {
+        authSection.innerHTML = `<span class="user-greeting">${savedNickname}님</span><button class="auth-btn" onclick="handleLogout()">로그아웃</button>`;
+    } else {
+        authSection.innerHTML = `<button class="auth-btn" onclick="openLoginModal()">로그인</button>`;
+    }
+}
+function openLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+    document.getElementById('nicknameInput').focus();
+}
+function closeLoginModal() {
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('nicknameInput').value = '';
+    document.getElementById('passwordInput').value = '';
+}
+function handleLogin() {
+    const nickname = document.getElementById('nicknameInput').value.trim();
+    const password = document.getElementById('passwordInput').value.trim();
+    if (!nickname) { alert('아이디를 입력해주세요!'); document.getElementById('nicknameInput').focus(); return; }
+    if (!password) { alert('비밀번호를 입력해주세요!'); document.getElementById('passwordInput').focus(); return; }
+    localStorage.setItem('subwayhub_user', nickname);
+    closeLoginModal();
+    checkLoginStatus();
+}
+function handleLogout() {
+    localStorage.removeItem('subwayhub_user');
+    checkLoginStatus();
+}
+document.getElementById('nicknameInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('passwordInput').focus(); });
+document.getElementById('passwordInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleLogin(); });
+window.addEventListener('load', checkLoginStatus);
+</script>
 </body>
 </html>
