@@ -172,14 +172,29 @@
 <body>
 
     <header class="header" style="background-color: #007bff; padding: 15px 20px;">
-        <div class="header-content">
-            <h1>
-                가라타다 <span class="subtitle">gara</span>
-                <span class="header-badge">약속</span>
-            </h1>
-            <div id="authSection" class="auth-section"></div>
-        </div>
-    </header>
+    <div class="header-content">
+
+        <h1>
+            <a href="index.html"
+               style="color: white; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+
+                가라타다
+
+                <span class="subtitle">
+                    gara
+                </span>
+
+                <span class="header-badge">
+                    약속 잡기
+                </span>
+
+            </a>
+        </h1>
+
+        <div id="authSection" class="auth-section"></div>
+
+    </div>
+</header>
 
     <div id="loginModal" class="modal-overlay">
         <div class="modal-content">
@@ -194,7 +209,6 @@
     </div>
 
     <nav class="nav-tabs" style="display: flex; background: white; border-bottom: 1px solid #ddd;">
-        <a href="index.html" class="tab-btn" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#666;">메인</a>
         <a href="meetup.html" class="tab-btn active" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#007bff; font-weight:bold; border-bottom:2px solid #007bff;">약속 잡기</a>
         <a href="review.html" class="tab-btn" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#666;">리뷰</a>
         <a href="achievement.html" class="tab-btn" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#666;">업적</a>
