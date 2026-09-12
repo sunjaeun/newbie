@@ -3,50 +3,602 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubwayHub - 나의 업적</title>
+    <title>SubwayHub - 업적</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="header">
-        <h1>SubwayHub <span>업적</span></h1>
-    </header>
+<header class="header">
+    <h1>SubwayHub <span>업적</span></h1>
+</header>
 
-    <nav class="nav-tabs">
-        <a href="index.html" class="tab-btn">약속 잡기</a>
-        <a href="review.html" class="tab-btn">리뷰</a>
-        <a href="achievement.html" class="tab-btn active">업적</a>
-        <a href="wiki.html" class="tab-btn">역무위키</a>
-    </nav>
+<nav class="nav-tabs">
+    <a href="index.html" class="tab-btn">약속 잡기</a>
+    <a href="review.html" class="tab-btn">리뷰</a>
+    <a href="achievement.html" class="tab-btn active">업적</a>
+    <a href="wiki.html" class="tab-btn">역무위키</a>
+</nav>
 
-    <main class="container">
-        <section class="page-content">
-            <h2>🏆 업적 및 챌린지</h2>
-            <div class="achievement-list">
-                <div class="achievement-item completed">
-                    <div class="icon">🚇</div>
-                    <div class="info">
-                        <h3>환승의 신</h3>
-                        <p>환승 난이도 '상' 역 10곳 방문 및 리뷰 작성 완료</p>
-                    </div>
-                </div>
-                <div class="achievement-item completed">
-                    <div class="icon">🧼</div>
-                    <div class="info">
-                        <h3>화장실 탐험가</h3>
-                        <p>화장실 정보 리뷰 5회 이상 등록</p>
-                    </div>
-                </div>
-                <div class="achievement-item">
-                    <div class="icon">🔒</div>
-                    <div class="info">
-                        <h3>역세권 마스터</h3>
-                        <p>특정 노선 전체 역 위키 정보 수정 달성</p>
-                    </div>
-                </div>
+<main class="container">
+
+    <!-- 상단 -->
+    <section class="achievement-top">
+
+        <div>
+            <h2>🏆 나의 업적</h2>
+            <p>
+                지하철을 이용하며 다양한 업적을 달성해보세요.
+            </p>
+        </div>
+
+        <div class="achievement-total">
+            <strong id="completedCount">0</strong>
+            <span>/ <span id="totalCount">0</span></span>
+        </div>
+
+    </section>
+
+
+    <!-- 카테고리 -->
+    <div class="achievement-tabs">
+
+        <button
+            class="achievement-tab active"
+            data-category="transfer"
+        >
+            🔄 환승
+        </button>
+
+        <button
+            class="achievement-tab"
+            data-category="line"
+        >
+            🚇 노선
+        </button>
+
+        <button
+            class="achievement-tab"
+            data-category="special"
+        >
+            ⭐ 특별
+        </button>
+
+        <button
+            class="achievement-tab"
+            data-category="secret"
+        >
+            🔒 비밀
+        </button>
+
+    </div>
+
+
+    <!-- 업적이 들어갈 영역 -->
+    <div id="achievementList" class="achievement-list-new"></div>
+
+</main>
+
+
+<script>
+
+/* ==========================================
+   업적 데이터
+========================================== */
+
+const achievements = [
+
+    /* ========================
+       환승 업적
+    ======================== */
+
+    {
+        id: "transfer_beginner",
+        category: "transfer",
+        icon: "🔄",
+        title: "환승 초보",
+        description: "환승역을 1번 이용하세요.",
+        goal: 1,
+        unit: "회"
+    },
+
+    {
+        id: "transfer_familiar",
+        category: "transfer",
+        icon: "🚶",
+        title: "이젠 익숙해",
+        description: "환승역을 20번 이용하세요.",
+        goal: 20,
+        unit: "회"
+    },
+
+    {
+        id: "transfer_master",
+        category: "transfer",
+        icon: "👑",
+        title: "환승 마스터",
+        description: "환승역을 100번 이용하세요.",
+        goal: 100,
+        unit: "회"
+    },
+
+
+    /* ========================
+       노선 업적
+    ======================== */
+
+   ...Array.from({ length: 9 }, (_, index) => {
+
+    const line = index + 1;
+
+    const lineColors = {
+        1: "#0052A4",
+        2: "#00A84D",
+        3: "#EF7C1C",
+        4: "#00A5DE",
+        5: "#996CAC",
+        6: "#CD7C2F",
+        7: "#747F00",
+        8: "#E6186C",
+        9: "#BDB092"
+    };
+
+    return {
+        id: `line_${line}_master`,
+        category: "line",
+        icon: `${line}`,
+        title: `${line}호선 마스터`,
+        description:
+            `${line}호선의 서로 다른 역을 20개 이상 이용하세요.`,
+        goal: 20,
+        unit: "개 역",
+        color: lineColors[line]
+    };
+
+}),
+
+
+    /* ========================
+       특별 업적
+    ======================== */
+
+    {
+        id: "indie_spirit",
+        category: "special",
+        icon: "🎸",
+        title: "인디 스피릿",
+        description:
+            "홍대입구, 상수, 합정역을 모두 이용하세요.",
+        goal: 3,
+        unit: "개 역"
+    },
+
+    {
+        id: "early_bird",
+        category: "special",
+        icon: "🌅",
+        title: "얼리버드",
+        description:
+            "첫차를 이용하세요.",
+        goal: 1,
+        unit: "회"
+    },
+
+    {
+        id: "last_train_master",
+        category: "special",
+        icon: "🌙",
+        title: "막차 마스터",
+        description:
+            "막차를 이용하세요.",
+        goal: 1,
+        unit: "회"
+    },
+
+    {
+        id: "terminal_traveler",
+        category: "special",
+        icon: "🛤️",
+        title: "종점 여행자",
+        description:
+            "노선의 종점역을 이용하세요.",
+        goal: 1,
+        unit: "회"
+    },
+
+    {
+        id: "hanriver_crossing",
+        category: "special",
+        icon: "🌉",
+        title: "한강 횡단",
+        description:
+            "한강을 지나는 지하철 노선을 이용하세요.",
+        goal: 1,
+        unit: "회"
+    },
+
+
+    /* ========================
+       비밀 업적
+    ======================== */
+
+    {
+        id: "landmark",
+        category: "secret",
+        secret: true,
+        icon: "🏙️",
+        title: "랜드마크",
+        description:
+            "유명 랜드마크가 있는 역을 방문하세요.",
+        goal: 1,
+        unit: "회"
+    },
+
+    {
+        id: "commuter",
+        category: "secret",
+        secret: true,
+        icon: "💼",
+        title: "프로 통근러",
+        description:
+            "5일 연속으로 같은 노선을 이용하세요.",
+        goal: 5,
+        unit: "일"
+    },
+
+    {
+        id: "campus_tour",
+        category: "secret",
+        secret: true,
+        icon: "🎓",
+        title: "캠퍼스 투어",
+        description:
+            "대학교 이름이 붙은 서로 다른 지하철역을 3곳 이상 이용하세요.",
+        goal: 3,
+        unit: "개 역"
+    },
+
+    {
+        id: "golden_hour",
+        category: "secret",
+        secret: true,
+        icon: "🌇",
+        title: "골든 아워",
+        description:
+            "일몰 시간에 지상역을 이용하세요.",
+        goal: 1,
+        unit: "회"
+    },
+
+    {
+        id: "four_seasons",
+        category: "secret",
+        secret: true,
+        icon: "🍀",
+        title: "봄여름가을겨울",
+        description:
+            "봄, 여름, 가을, 겨울 모든 계절에 지하철을 이용하세요.",
+        goal: 4,
+        unit: "계절"
+    },
+
+    {
+        id: "full_album",
+        category: "secret",
+        secret: true,
+        icon: "🎧",
+        title: "풀 앨범 감상",
+        description:
+            "환승 없이 한 노선에서 1시간 이상 연속으로 이동하세요.",
+        goal: 60,
+        unit: "분"
+    }
+
+];
+
+
+/* ==========================================
+   사용자 진행도
+========================================== */
+
+/*
+    저장된 기록이 없으면 자동으로 0부터 시작함.
+
+    예:
+
+    {
+        transfer_beginner: 1,
+        transfer_familiar: 8,
+        line_2_master: 6
+    }
+
+*/
+
+let achievementProgress =
+    JSON.parse(
+        localStorage.getItem("achievementProgress")
+    ) || {};
+
+
+/* ==========================================
+   현재 진행도 가져오기
+========================================== */
+
+function getProgress(id) {
+
+    return achievementProgress[id] || 0;
+
+}
+
+
+/* ==========================================
+   업적 화면 생성
+========================================== */
+
+function renderAchievements(category) {
+
+    const list =
+        document.getElementById("achievementList");
+
+    list.innerHTML = "";
+
+
+    const filtered =
+        achievements.filter(
+            achievement =>
+                achievement.category === category
+        );
+
+
+    filtered.forEach(achievement => {
+
+        const current =
+            getProgress(achievement.id);
+
+        const completed =
+            current >= achievement.goal;
+
+
+        /*
+            진행률 계산
+        */
+
+        let percent =
+            (current / achievement.goal) * 100;
+
+        if (percent > 100) {
+            percent = 100;
+        }
+
+
+        /*
+            비밀 업적
+
+            달성 전에는 조건 표현 x 
+        */
+
+        const displayTitle =
+            achievement.secret && !completed
+            ? "???"
+            : achievement.title;
+
+
+        const displayDescription =
+            achievement.secret && !completed
+            ? "숨겨진 조건을 달성하면 업적이 공개됩니다."
+            : achievement.description;
+
+
+        const displayIcon =
+            achievement.secret && !completed
+            ? "🔒"
+            : achievement.icon;
+
+
+        /*
+            카드 만들기
+        */
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "achievement-card-new";
+
+            if (achievement.color) {
+    card.style.setProperty(
+        "--achievement-color",
+        achievement.color
+    );
+
+    card.classList.add("line-achievement");
+}
+
+
+        if (completed) {
+
+            card.classList.add("completed");
+
+        }
+
+
+        if (achievement.secret && !completed) {
+
+            card.classList.add("secret-card");
+
+        }
+
+
+        card.innerHTML = `
+
+            <div class="achievement-icon-new">
+                ${displayIcon}
             </div>
-        </section>
-    </main>
+
+            <div class="achievement-info-new">
+
+                <div class="achievement-name-row">
+
+                    <h3>
+                        ${displayTitle}
+                    </h3>
+
+                    ${
+                        completed
+
+                        ? `
+                        <span class="achievement-complete-badge">
+                            달성
+                        </span>
+                        `
+
+                        : `
+                        <span class="achievement-progress-badge">
+                            진행 중
+                        </span>
+                        `
+                    }
+
+                </div>
+
+
+                <p class="achievement-description">
+                    ${displayDescription}
+                </p>
+
+
+                ${
+                    achievement.secret && !completed
+
+                    ? `
+                        <div class="secret-message">
+                            🔐 비밀 업적
+                        </div>
+                    `
+
+                    : `
+
+                    <div class="achievement-progress">
+
+                        <div
+                            class="achievement-progress-fill"
+                            style="width:${percent}%">
+                        </div>
+
+                    </div>
+
+
+                    <div class="achievement-progress-text">
+
+                        ${Math.min(current, achievement.goal)}
+                        /
+                        ${achievement.goal}
+                        ${achievement.unit}
+
+                    </div>
+
+                    `
+                }
+
+            </div>
+
+        `;
+
+
+        list.appendChild(card);
+
+    });
+
+
+    updateAchievementCounter();
+
+}
+
+
+/* ==========================================
+   달성 개수
+========================================== */
+
+function updateAchievementCounter() {
+
+    let completed = 0;
+
+
+    achievements.forEach(achievement => {
+
+        const progress =
+            getProgress(achievement.id);
+
+
+        if (progress >= achievement.goal) {
+
+            completed++;
+
+        }
+
+    });
+
+
+    document.getElementById(
+        "completedCount"
+    ).textContent = completed;
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent = achievements.length;
+
+}
+
+
+/* ==========================================
+   탭 클릭
+========================================== */
+
+const tabs =
+    document.querySelectorAll(
+        ".achievement-tab"
+    );
+
+
+tabs.forEach(tab => {
+
+    tab.addEventListener(
+        "click",
+        function() {
+
+            tabs.forEach(button => {
+
+                button.classList.remove(
+                    "active"
+                );
+
+            });
+
+
+            this.classList.add(
+                "active"
+            );
+
+
+            renderAchievements(
+                this.dataset.category
+            );
+
+        }
+    );
+
+});
+
+
+/* ==========================================
+   처음 화면
+========================================== */
+
+renderAchievements("transfer");
+
+</script>
 
 </body>
 </html>
