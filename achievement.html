@@ -314,11 +314,21 @@ const achievements = [
 
 */
 
-let achievementProgress =
-    JSON.parse(
-        localStorage.getItem("achievementProgress")
-    ) || {};
+const currentUser =
+    localStorage.getItem("subwayhub_user");
 
+let achievementProgress = {};
+
+if (currentUser) {
+
+    achievementProgress =
+        JSON.parse(
+            localStorage.getItem(
+                `achievementProgress_${currentUser}`
+            )
+        ) || {};
+
+}
 
 /* ==========================================
    현재 진행도 가져오기
