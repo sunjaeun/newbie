@@ -3,43 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubwayHub - 약속 장소 잡기</title>
+    <title>가라타다 - 메인</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header-content h1 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            color: white;
+            margin: 0;
+        }
+
+        .header-content h1 span.subtitle {
+            font-size: 0.9rem;
+            font-weight: normal;
+            opacity: 0.8;
+        }
+
+        .header-badge {
+            background-color: #ff4757;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        .auth-section {
+            font-size: 0.9rem;
+        }
+
+        .auth-btn {
+            background-color: white;
+            color: #007bff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .user-greeting {
+            margin-right: 10px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .modal-content input:focus {
+            border-color: #007bff;
+        }
+
+        .modal-buttons {
+            margin-top: 10px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 5px;
+            width: 40%;
+        }
+
+        .btn-primary { background: #007bff; color: white; }
+        .btn-secondary { background: #e9ecef; color: #333; }
+
+        .main-banner {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-top: 20px;
+        }
+
+        .main-banner h2 {
+            color: #333;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .main-banner p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .start-btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
 
-    <header class="header">
-        <h1>SubwayHub <span>약속 장소</span></h1>
+    <header class="header" style="background-color: #007bff; padding: 15px 20px;">
+        <div class="header-content">
+            <h1>
+                가라타다 <span class="subtitle">gara</span>
+                <span class="header-badge">HOME</span>
+            </h1>
+            <div id="authSection" class="auth-section"></div>
+        </div>
     </header>
 
-    <!-- 공통 네비게이션: 클릭 시 각 HTML 파일로 이동 -->
-    <nav class="nav-tabs">
-        <a href="index.html" class="tab-btn active">약속 잡기</a>
-        <a href="review.html" class="tab-btn">리뷰</a>
-        <a href="achievement.html" class="tab-btn">업적</a>
-        <a href="wiki.html" class="tab-btn">역무위키</a>
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>간편 로그인</h3>
+            <input type="text" id="nicknameInput" placeholder="아이디를 입력하세요">
+            <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="closeLoginModal()">취소</button>
+                <button class="btn-primary" onclick="handleLogin()">로그인</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav-tabs" style="display: flex; background: white; border-bottom: 1px solid #ddd;">
+        <a href="index.html" class="tab-btn active" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#007bff; font-weight:bold; border-bottom:2px solid #007bff;">메인</a>
+        <a href="meetup.html" class="tab-btn" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#666;">약속 잡기</a>
+        <a href="review.html" class="tab-btn" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#666;">리뷰</a>
+        <a href="achievement.html" class="tab-btn" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#666;">업적</a>
+        <a href="wiki.html" class="tab-btn" style="flex:1; text-align:center; padding:12px; text-decoration:none; color:#666;">역무위키</a>
     </nav>
 
-    <main class="container">
-        <section class="page-content">
-            <h2>📍 중간 지점 약속 장소 찾기</h2>
-            <form class="meetup-form" onsubmit="event.preventDefault();">
-                <div class="input-group">
-                    <label for="startA">사용자 A 출발역</label>
-                    <input type="text" id="startA" placeholder="예: 홍대입구역">
-                </div>
-                <div class="input-group">
-                    <label for="startB">사용자 B 출발역</label>
-                    <input type="text" id="startB" placeholder="예: 잠실역">
-                </div>
-                <button type="submit" class="submit-btn">최적의 중간역 계산</button>
-            </form>
-
-            <div class="result-box">
-                <p>💡 추천 중간역: <strong>강남역</strong> (소요시간 약 25분 동일)</p>
-            </div>
+    <main class="container" style="max-width: 600px; margin: 20px auto; padding: 0 20px;">
+        <section class="main-banner">
+            <h2>🚇 환영합니다! 가라타다 서비스</h2>
+            <p>친구와 나의 중간 지점 환승역을 찾고,<br>다양한 역무 정보와 커뮤니티 리뷰를 확인해보세요.</p>
+            <a href="meetup.html" class="start-btn">약속 장소 찾으러 가기</a>
         </section>
     </main>
 
+    <script>
+        function checkLoginStatus() {
+            const savedNickname = localStorage.getItem('subwayhub_user');
+            const authSection = document.getElementById('authSection');
+
+            if (savedNickname) {
+                authSection.innerHTML = `
+                    <span class="user-greeting">${savedNickname}님</span>
+                    <button class="auth-btn" onclick="handleLogout()">로그아웃</button>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <button class="auth-btn" onclick="openLoginModal()">로그인</button>
+                `;
+            }
+        }
+
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('nicknameInput').focus();
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('nicknameInput').value = ''; 
+            document.getElementById('passwordInput').value = ''; 
+        }
+
+        function handleLogin() {
+            const nickname = document.getElementById('nicknameInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
+
+            if (!nickname) {
+                alert("아이디를 입력해주세요!");
+                document.getElementById('nicknameInput').focus();
+                return;
+            }
+            if (!password) {
+                alert("비밀번호를 입력해주세요!");
+                document.getElementById('passwordInput').focus();
+                return;
+            }
+            
+            localStorage.setItem('subwayhub_user', nickname);
+            closeLoginModal();
+            checkLoginStatus(); 
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('subwayhub_user');
+            checkLoginStatus(); 
+        }
+
+        document.getElementById('nicknameInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('passwordInput').focus();
+            }
+        });
+
+        document.getElementById('passwordInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+
+        window.onload = function() {
+            checkLoginStatus();
+        };
+    </script>
 </body>
 </html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SubwayHub - 리뷰 작성</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>
+            SubwayHub
+            <span>리뷰 작성</span>
+        </h1>
+    </header>
+
+
+    <nav class="nav-tabs">
+
+        <a href="index.html" class="tab-btn">
+            약속 잡기
+        </a>
+
+        <a href="review.html" class="tab-btn active">
+            리뷰
+        </a>
+
+        <a href="achievement.html" class="tab-btn">
+            업적
+        </a>
+
+        <a href="wiki.html" class="tab-btn">
+            역무위키
+        </a>
+
+    </nav>
+
+
+    <main class="review-write-container">
+
+        <section class="review-write-heading">
+
+            <button
+                id="cancelButton"
+                class="review-back-button"
+                type="button"
+            >
+                ←
+            </button>
+
+            <div>
+                <p class="review-write-label">
+                    REVIEW
+                </p>
+
+                <h2>
+                    역 리뷰 작성
+                </h2>
+
+                <p>
+                    직접 이용한 경험을 공유해주세요.
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="review-write-card station-card">
+
+            <div class="write-card-title">
+
+                <div class="write-card-icon station">
+                    🚉
+                </div>
+
+                <div>
+                    <span>리뷰할 역</span>
+                    <h3>역 이름</h3>
+                </div>
+
+            </div>
+
+
+            <input
+                id="stationName"
+                class="station-name-input"
+                type="text"
+                placeholder="역 이름"
+                readonly
+            >
+
+        </section>
+
+
+        <section class="review-write-card">
+
+            <div class="write-card-title">
+
+                <div class="write-card-icon toilet">
+                    🚽
+                </div>
+
+                <div>
+                    <span>시설</span>
+                    <h3>화장실은 어땠나요?</h3>
+                </div>
+
+            </div>
+
+
+            <label class="write-field-label">
+                화장실 만족도
+            </label>
+
+            <select
+                id="toiletRating"
+                class="review-select"
+            >
+                <option value="">
+                    별점을 선택해주세요
+                </option>
+
+                <option value="5">
+                    ⭐⭐⭐⭐⭐ 매우 좋아요
+                </option>
+
+                <option value="4">
+                    ⭐⭐⭐⭐ 좋아요
+                </option>
+
+                <option value="3">
+                    ⭐⭐⭐ 보통이에요
+                </option>
+
+                <option value="2">
+                    ⭐⭐ 아쉬워요
+                </option>
+
+                <option value="1">
+                    ⭐ 별로예요
+                </option>
+            </select>
+
+
+            <label class="write-field-label">
+                상세 정보
+            </label>
+
+            <textarea
+                id="toiletComment"
+                class="review-textarea"
+                placeholder="화장실 위치, 청결 상태, 휴지 비치 여부 등을 알려주세요."
+            ></textarea>
+
+        </section>
+
+
+        <section class="review-write-card">
+
+            <div class="write-card-title">
+
+                <div class="write-card-icon transfer">
+                    🔄
+                </div>
+
+                <div>
+                    <span>이동</span>
+                    <h3>환승은 얼마나 어려웠나요?</h3>
+                </div>
+
+            </div>
+
+
+            <label class="write-field-label">
+                환승 난이도
+            </label>
+
+            <select
+                id="transferDifficulty"
+                class="review-select"
+            >
+                <option value="">
+                    난이도를 선택해주세요
+                </option>
+
+                <option value="1">
+                    🟢 하 · 쉬움
+                </option>
+
+                <option value="2">
+                    🟡 중 · 보통
+                </option>
+
+                <option value="3">
+                    🔴 상 · 어려움
+                </option>
+
+                <option value="0">
+                    환승역이 아니에요
+                </option>
+            </select>
+
+
+            <label class="write-field-label">
+                상세 정보
+            </label>
+
+            <textarea
+                id="transferComment"
+                class="review-textarea"
+                placeholder="환승 거리, 계단, 이동 동선 등을 알려주세요."
+            ></textarea>
+
+        </section>
+
+
+        <section class="review-write-card">
+
+            <div class="write-card-title">
+
+                <div class="write-card-icon commercial">
+                    🍽️
+                </div>
+
+                <div>
+                    <span>주변</span>
+                    <h3>주변 상권은 어떤가요?</h3>
+                </div>
+
+            </div>
+
+
+            <label class="write-field-label">
+                주변 정보
+            </label>
+
+            <textarea
+                id="commercialComment"
+                class="review-textarea commercial-textarea"
+                placeholder="맛집, 카페, 편의점, 놀거리 등 주변 정보를 알려주세요."
+            ></textarea>
+
+        </section>
+
+
+        <div class="review-submit-area">
+
+            <button
+                id="submitReviewButton"
+                class="review-submit-button"
+                type="button"
+            >
+                리뷰 등록하기
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <script src="reviewWrite.js"></script>
+
+</body>
+
+</html>
