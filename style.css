@@ -1,0 +1,212 @@
+/* 기본 초기화 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+/* 헤더 */
+.header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+.header span {
+    font-size: 0.8rem;
+    background-color: #ff4757;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+/* 네비게이션 (a 태그 스타일링) */
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-btn {
+    flex: 1;
+    max-width: 120px;
+    padding: 12px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #666;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active {
+    color: #007bff;
+    border-bottom: 3px solid #007bff;
+}
+
+/* 메인 컨테이너 */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.page-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+/* 폼 & 검색 공통 */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.search-box input, .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.search-box button, .submit-btn, .edit-btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 리뷰 카드 */
+.card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+}
+
+.rating {
+    color: #f1c40f;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.badge.hard {
+    display: inline-block;
+    background-color: #ff4757;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+/* 업적 목록 */
+.achievement-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    opacity: 0.4;
+    filter: grayscale(100%);
+}
+
+.achievement-item.completed {
+    opacity: 1;
+    filter: none;
+    border-left: 5px solid #2ed573;
+}
+
+.achievement-item .icon {
+    font-size: 2rem;
+}
+
+/* 역무위키 */
+.wiki-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.wiki-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.wiki-box h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #007bff;
+}
+
+.wiki-box ul {
+    list-style: none;
+}
+
+.wiki-box li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 8px;
+}
+
+/* 약속 장소 */
+.meetup-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.result-box {
+    margin-top: 15px;
+    background: #fff3bf;
+    border: 1px solid #ffe066;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}

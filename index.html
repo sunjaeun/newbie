@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubwayHub - 약속 장소 잡기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>SubwayHub <span>약속 장소</span></h1>
+    </header>
+
+    <!-- 공통 네비게이션: 클릭 시 각 HTML 파일로 이동 -->
+    <nav class="nav-tabs">
+        <a href="index.html" class="tab-btn active">약속 잡기</a>
+        <a href="review.html" class="tab-btn">리뷰</a>
+        <a href="achievement.html" class="tab-btn">업적</a>
+        <a href="wiki.html" class="tab-btn">역무위키</a>
+    </nav>
+
+    <main class="container">
+        <section class="page-content">
+            <h2>📍 중간 지점 약속 장소 찾기</h2>
+            <form class="meetup-form" onsubmit="event.preventDefault();">
+                <div class="input-group">
+                    <label for="startA">사용자 A 출발역</label>
+                    <input type="text" id="startA" placeholder="예: 홍대입구역">
+                </div>
+                <div class="input-group">
+                    <label for="startB">사용자 B 출발역</label>
+                    <input type="text" id="startB" placeholder="예: 잠실역">
+                </div>
+                <button type="submit" class="submit-btn">최적의 중간역 계산</button>
+            </form>
+
+            <div class="result-box">
+                <p>💡 추천 중간역: <strong>강남역</strong> (소요시간 약 25분 동일)</p>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
